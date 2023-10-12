@@ -1,10 +1,6 @@
 async function updateStaticRules(enableRulesetIds, disableCandidateIds) {
-  // Create the options structure for the call to updateEnabledRulesets()
   let options = { enableRulesetIds: enableRulesetIds, disableRulesetIds: disableCandidateIds };
-  // Get the number of enabled static rules
   const enabledStaticCount = await chrome.declarativeNetRequest.getEnabledRulesets();
-  // Compare rule counts to determine if anything needs to be disabled so that
-  // new rules can be enabled
   const proposedCount = enableRulesetIds.length;
   if (
     enabledStaticCount + proposedCount >
@@ -12,25 +8,46 @@ async function updateStaticRules(enableRulesetIds, disableCandidateIds) {
   ) {
     options.disableRulesetIds = disableCandidateIds;
   }
-  // Update the enabled static rules
   await chrome.declarativeNetRequest.updateEnabledRulesets(options);
 }
 
-// Функция для получения текущего состояния правил
 export async function getRulesEnabledState() {
   const enabledRuleSets = await chrome.declarativeNetRequest.getEnabledRulesets();
-  return enabledRuleSets.length > 0; // Если есть включенные правила, возвращаем true
-}
-// Функция для включения наборов правил
-export async function enableRules() {
-  const enableRuleSetIds = ['default']; // Замените на фактический ID набора правил
-  // Включите правила
-  await updateStaticRules(enableRuleSetIds, []);
+  return enabledRuleSets.length > 0;
 }
 
-// Функция для выключения наборов правил
-export async function disableRules() {
-  const disableRuleSetIds = ['default']; // Замените на фактический ID набора правил
-  // Выключите правила
-  await updateStaticRules([], disableRuleSetIds);
+function browserReload() {
+  return new Promise((resolve) => {
+    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+      chrome.tabs.reload(tabs[0].id, () => {
+        resolve();
+      });
+    });
+  });
 }
+
+export async function enableRulesForCurrentPage() {
+  const enableRuleSetIds = ['default'];
+  const [activeTab] = await chrome.tabs.query({ active: true, currentWindow: true });
+
+  if (activeTab) {
+    const tabId = activeTab.id;
+    await updateStaticRules(enableRuleSetIds, []);
+    await browserReload(tabId);
+  }
+}
+
+export async function disableRulesForCurrentPage() {
+  const disableRuleSetIds = ['default'];
+  const [activeTab] = await chrome.tabs.query({ active: true, currentWindow: true });
+
+  if (activeTab) {
+    const tabId = activeTab.id;
+    await updateStaticRules([], disableRuleSetIds);
+    await browserReload(tabId);
+  }
+}
+
+chrome.runtime.onInstalled.addListener(() => {
+  chrome.declarativeNetRequest.setExtensionActionOptions({ displayActionCountAsBadgeText: true });
+});

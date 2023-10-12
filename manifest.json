@@ -17,15 +17,15 @@
         "default_title": "BlockAda",
         "default_popup": "popup/popup.html",
         "default_icon": {
-        "16": "assets/images/logo.png",
-        "32": "assets/images/logo.png",
-        "64": "assets/images/logo.png"
+        "16": "assets/images/logo_16.png",
+        "32": "assets/images/logo_32.png",
+        "64": "assets/images/logo_64.png"
       }
     },
     "icons": {
-        "16": "assets/images/logo.png",
-        "32": "assets/images/logo.png",
-        "64": "assets/images/logo.png"
+        "16": "assets/images/logo_16.png",
+        "32": "assets/images/logo_32.png",
+        "64": "assets/images/logo_64.png"
       },
     "declarative_net_request": {
         "rule_resources": [
