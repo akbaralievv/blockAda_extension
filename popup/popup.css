@@ -25,7 +25,7 @@ body {
 
 .wrapper{
     width: 250px;
-    height: 250px;
+    height: 225px;
 }
 .inner{
     width: 100%;
@@ -51,8 +51,11 @@ body {
 .header-text-tittle {
     font-size: 16px;
     text-align: left;
-    color: #363636;
+    color: #4b5673;
     float: left;
+}
+.header-text-tittle strong{
+    color: #4971aa;
 }
 .info-icon {
     position: relative;
@@ -77,6 +80,60 @@ body {
     margin-left: auto;
     margin-right: 10px;
     text-decoration: none;
+}
+
+.info-text-block {
+    visibility: hidden;
+    text-align: left;
+    min-width: 123px;
+    position: absolute;
+    border-radius: 4px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 6px 0 rgba(75, 75, 75, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.06);
+    border: solid 1px #cecfd1;
+    right: 25px;
+    top: -8.2px;
+    color: rgba(49, 50, 61, 0.87);
+    font-size: 13px;
+    line-height: 1.4;
+    z-index: 1000;
+    opacity: 0;
+}
+
+.info-link .info-icon:hover .info-text-block{
+    visibility: visible;
+    opacity: 100;
+    transition: opacity 0.1s linear;
+}
+
+
+.info-text-block::after {
+    height: 8px;
+    width: 8px;
+    position: relative;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    content: '';
+    display: block;
+    position: absolute;
+    background-color: #fff;
+    background-size: cover;
+    border-radius: 1.4px;
+    right: -5.1px;
+    top: 12px;
+    border-top: solid 1px #c5c5c5;
+    border-right: solid 1px #c5c5c5;
+}
+
+.info_descript {
+    padding: 10px 16px;
+    color: #19468b;
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1.24;
+    letter-spacing: 0.2px;
+    margin: 0;
+    text-align: center;
 }
 
 .btn-wrapper {

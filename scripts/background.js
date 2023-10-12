@@ -26,16 +26,26 @@ function browserReload() {
   });
 }
 
-export async function enableRules() {
+export async function enableRulesForCurrentPage() {
   const enableRuleSetIds = ['default'];
-  await updateStaticRules(enableRuleSetIds, []);
-  browserReload();
+  const [activeTab] = await chrome.tabs.query({ active: true, currentWindow: true });
+
+  if (activeTab) {
+    const tabId = activeTab.id;
+    await updateStaticRules(enableRuleSetIds, []);
+    await browserReload(tabId);
+  }
 }
 
-export async function disableRules() {
+export async function disableRulesForCurrentPage() {
   const disableRuleSetIds = ['default'];
-  await updateStaticRules([], disableRuleSetIds);
-  browserReload();
+  const [activeTab] = await chrome.tabs.query({ active: true, currentWindow: true });
+
+  if (activeTab) {
+    const tabId = activeTab.id;
+    await updateStaticRules([], disableRuleSetIds);
+    await browserReload(tabId);
+  }
 }
 
 chrome.runtime.onInstalled.addListener(() => {
