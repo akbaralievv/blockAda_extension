@@ -42,7 +42,7 @@ body {
     width: 100%;
     background-color: rgb(220 233 247);
     display: flex;
-    padding: 18px;
+    padding: 19px;
     align-items: center;
 }
 .header-text {
@@ -185,6 +185,17 @@ body {
     width: 35px;
     position: absolute;
     height: 35px;
+}
+
+.btn-back{
+    display: flex;
+    width: 90px;
+    justify-content: center;
+    align-items: center;
+    height: 90px;
+    border-radius: 50%;
+    background-color: white;
+    z-index: 1;
 }
 
 .disabled #btn-on {
