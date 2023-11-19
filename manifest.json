@@ -1,13 +1,11 @@
 {
     "manifest_version": 3,
     "name": "BlockAda",
-    "description": "Blocking ads",
+    "description": "Complete freedom from annoying advertising",
     "version": "1.0.0",
     "permissions": [
         "declarativeNetRequest",
-        "activeTab",
-        "webRequest",
-        "storage"
+        "tabs"
     ],
     "background": {
         "service_worker": "scripts/background.js",
@@ -35,11 +33,5 @@
                 "path": "/rulesets/main/default.json"
             }
         ]
-    },
-    "content_scripts": [
-        {
-            "matches": ["<all_urls>"],
-            "js": ["scripts/content.js"]
-        }
-    ]
+    }
 }
